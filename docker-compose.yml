@@ -1,0 +1,26 @@
+version: '3.4'
+services:
+  aidchannel_py_api:
+    image: registry.data4jobs.com/aidchannel_py_api:latest
+    environment:
+      - DB="mongodb://aidchannel:aidchannel_password123456@51.77.134.195:27028/aidchannel?authSource=aidchannel"
+    deploy:
+      labels:
+       - "traefik.http.routers.aidchannel-py-api.rule=Host(`news.jtsolution.org`)"
+       - "traefik.enable=true"
+       - "traefik.docker.network=public"  
+       - "traefik.http.routers.aidchannel-py-api.tls.certresolver=let"
+       - "traefik.http.routers.aidchannel-py-api.entrypoints=websecure"
+       - "traefik.http.services.aidchannel-py-api.loadbalancer.server.port=80"
+
+      replicas: 1
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+        delay: 1s
+    networks:
+      - public
+networks:
+  public:
+       external: true
