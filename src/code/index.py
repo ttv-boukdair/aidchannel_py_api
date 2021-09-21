@@ -5,7 +5,6 @@ import addAvatars
 import testselenium
 import scrapNews2
 import test2
-
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
