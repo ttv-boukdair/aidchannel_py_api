@@ -33,8 +33,8 @@ def save_tweets():
     print("ok")
     # return tweets
 
-@app.post('/tweets')
-def save_tweets():
+@app.post('/test')
+def test():
     tweets = scrapTwitterUser.runtest()
     return tweets
     # return tweets
@@ -57,11 +57,6 @@ def save_news():
 def test():
     data = scrapNews2.run()
     # return data
-
-@app.get("/teest")
-def teest():
-    data = requesttest.run()
-    return data
 
 
 
