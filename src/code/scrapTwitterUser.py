@@ -101,5 +101,5 @@ def run():
 
 def runtest():
     usernames, org_ids, country_ids = get_org_info()
-    return {usernames, org_ids, country_ids}
+    return [usernames, org_ids, country_ids]
     print("great")
