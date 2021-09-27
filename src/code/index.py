@@ -36,7 +36,7 @@ def save_tweets():
 @app.post('/test')
 def test():
     tweets = scrapTwitterUser.runtest()
-    return tweets
+    return str(tweets)
     # return tweets
 
 @app.post('/addavatars')
