@@ -30,6 +30,7 @@ class Input(BaseModel):
 @app.post('/tweets')
 def save_tweets():
     tweets = scrapTwitterUser.run()
+    return "done"
     print("ok")
     # return tweets
 
