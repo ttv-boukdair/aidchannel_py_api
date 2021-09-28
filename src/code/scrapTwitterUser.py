@@ -72,7 +72,8 @@ def scrap_users_tweets(username, organization_id, country_id):
     c = twint.Config()
     c.Username = username
     c.Custom["tweet"] = ["id","created_at","datestamp"]
-    c.Limit = 20
+    c.Filter_retweets = True
+    c.Retweets = True
     c.Retries_count = 5
     c.Store_object = True
     # c.Hide_output = True
