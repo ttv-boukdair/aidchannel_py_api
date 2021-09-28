@@ -12,7 +12,7 @@ db = client.aidchannel
 
 def get_last_date(username):
     try:
-        cur = db.twitters.find({"twitter_username":username}).sort("posted_at",-1).limit(1)
+        cur = db.tweets.find({"twitter_username":username}).sort("posted_at",-1).limit(1)
         for doc in cur :
             date = doc['posted_at']
             date2 = date[:18]+str(int(date[18]) + 1 )
@@ -64,7 +64,8 @@ def save_model(tweet, username, org_id, country_id):
     "name":tweet.name,
     "avatar_id": avatar
     }
-    document = db.tweets.insert_one(model)
+    if username == tweet.username:
+        document = db.tweets.insert_one(model)
 
 
 def scrap_users_tweets(username, organization_id, country_id):
