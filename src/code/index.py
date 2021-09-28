@@ -34,11 +34,7 @@ def save_tweets():
     print("ok")
     # return tweets
 
-@app.post('/test')
-def test():
-    tweets = scrapTwitterUser.runtest()
-    return str(tweets)
-    # return tweets
+
 
 @app.post('/addavatars')
 def save_avatar():

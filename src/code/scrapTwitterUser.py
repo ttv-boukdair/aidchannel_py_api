@@ -12,7 +12,7 @@ db = client.aidchannel
 
 def get_last_date(username):
     try:
-        cur = db.tweets.find({"twitter_username":username}).sort("posted_at",-1).limit(1)
+        cur = db.twitters.find({"twitter_username":username}).sort("posted_at",-1).limit(1)
         for doc in cur :
             date = doc['posted_at']
             date2 = date[:18]+str(int(date[18]) + 1 )
@@ -65,7 +65,7 @@ def save_model(tweet, username, org_id, country_id):
     "avatar_id": avatar
     }
     if username == tweet.username:
-        document = db.tweets.insert_one(model)
+        document = db.twitters.insert_one(model)
 
 
 def scrap_users_tweets(username, organization_id, country_id):
@@ -103,43 +103,3 @@ def run():
         print("great")
 
 
-
-def org_info():
-    res = []
-    cursor_account = db.organizations.find({"twitter_username": {"$exists": True}})
-    for c1 in cursor_account:
-        info = {
-        "org_id":  c1["_id"],
-        "org_name" : c1["name"],
-        "country": c1["country"],
-        "twitter_username" : c1["twitter_username"]
-        }
-        res.append(info)
-    return res
-def scrap_tweets(org):
-    c = twint.Config()
-    c.Username = org['twitter_username']
-    c.Custom["tweet"] = ["id","created_at","datestamp"]
-    c.Filter_retweets = True
-    c.Retweets = True
-    c.Retries_count = 5
-    c.Store_object = True
-    # c.Hide_output = True
-    #  add newest tweets to database since last scrapping
-    print(c)
-    try:
-        print("try")
-        twint.run.Search(c)
-        print("good")
-    except Exception as e:
-        print("could not fetch data from: ", org['twitter_username'],"\n",e)
-        return None
-    tweets = twint.output.tweets_list
-    print( tweets)
-def runtest():
-    res = org_info()
-    print(res)
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        executor.map(lambda params: scrap_users_tweets(*params), zip(res))
-    return ""
-    print("great")
