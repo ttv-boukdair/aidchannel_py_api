@@ -2,7 +2,6 @@ import os
 import twint
 import concurrent.futures
 from itertools import repeat
-from dotenv import load_dotenv
 from pymongo import MongoClient
 
 
@@ -72,8 +71,7 @@ def scrap_users_tweets(username, organization_id, country_id):
     c = twint.Config()
     c.Username = username
     c.Custom["tweet"] = ["id","created_at","datestamp"]
-    c.Filter_retweets = True
-    c.Retweets = True
+    c.Limit = 20
     c.Retries_count = 5
     c.Store_object = True
     # c.Hide_output = True
@@ -114,25 +112,29 @@ def org_info():
         res.append(info)
     return res
 def scrap_tweets(org):
-    db = client["aidchannel"]
     c = twint.Config()
     c.Username = org['twitter_username']
     c.Custom["tweet"] = ["id","created_at","datestamp"]
     c.Filter_retweets = True
-    c.Limit = 20
+    c.Retweets = True
     c.Retries_count = 5
     c.Store_object = True
     # c.Hide_output = True
     #  add newest tweets to database since last scrapping
+    print(c)
     try:
+        print("try")
         twint.run.Search(c)
+        print("good")
     except Exception as e:
         print("could not fetch data from: ", org['twitter_username'],"\n",e)
         return None
     tweets = twint.output.tweets_list
-    return tweets
+    print( tweets)
 def runtest():
     res = org_info()
-    twt = scrap_tweets(res[0])
-    return twt
+    print(res)
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        executor.map(lambda params: scrap_users_tweets(*params), zip(res))
+    return ""
     print("great")
