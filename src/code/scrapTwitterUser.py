@@ -114,8 +114,31 @@ def org_info():
         }
         res.append(info)
     return res
+def scrap_tweets(org):
+    db = client["aidchannel"]
+    c = twint.Config()
+    c.Username = org['twitter_username']
+    c.Custom["tweet"] = ["id","created_at","datestamp"]
+    c.Filter_retweets = True
+    c.Limit = 20
+    c.Retries_count = 5
+    c.Store_object = True
+    # c.Hide_output = True
 
+    #  add newest tweets to database since last scrapping
+    since_date = get_last_date(org['twitter_username'])
+    if since_date != False:
+          c.Since = since_date
+    try:
+        twint.run.Search(c)
+    except Exception as e:
+        print("could not fetch data from: ", org['twitter_username'],"\n",e)
+        return None
+
+    tweets = twint.output.tweets_list
+    return tweets
 def runtest():
     res = org_info()
-    return res
+    twt = scrap_tweets(res[0])
+    return twt
     print("great")
