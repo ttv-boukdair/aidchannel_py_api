@@ -55,6 +55,7 @@ def save_model(tweet, username, org_id, country_id):
     model = {
     "tweet_id": tweet.id,
     "twitter_username": username,
+    "tweet_username":tweet.username,
     "organization": org_id,
     "country": country_id,
     "posted_at": posted_at,
