@@ -62,7 +62,8 @@ def save_model(tweet, username, org_id, country_id):
     "body":tweet.tweet,
     "photos":tweet.photos,
     "name":tweet.name,
-    "avatar_id": avatar
+    "avatar_id": avatar,
+     "validation":1
     }
     if username == tweet.username:
         document = db.twitters.insert_one(model)
