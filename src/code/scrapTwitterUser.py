@@ -102,7 +102,6 @@ def run():
 
 
 def org_info():
-
     res = []
     cursor_account = db.organizations.find({"twitter_username": {"$exists": True}})
     for c1 in cursor_account:
@@ -124,17 +123,12 @@ def scrap_tweets(org):
     c.Retries_count = 5
     c.Store_object = True
     # c.Hide_output = True
-
     #  add newest tweets to database since last scrapping
-    since_date = get_last_date(org['twitter_username'])
-    if since_date != False:
-          c.Since = since_date
     try:
         twint.run.Search(c)
     except Exception as e:
         print("could not fetch data from: ", org['twitter_username'],"\n",e)
         return None
-
     tweets = twint.output.tweets_list
     return tweets
 def runtest():
