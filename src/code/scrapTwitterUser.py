@@ -42,6 +42,7 @@ def get_org_info():
 
 
 
+
 def save_model(tweet, username, org_id, country_id):
     datestamp = tweet.datestamp
     timestamp = tweet.timestamp
@@ -99,7 +100,22 @@ def run():
         print("great")
 
 
+
+def org_info():
+
+    res = []
+    cursor_account = db.organizations.find({"twitter_username": {"$exists": True}})
+    for c1 in cursor_account:
+        info = {
+        "org_id":  c1["_id"],
+        "org_name" : c1["name"],
+        "country": c1["country"],
+        "twitter_username" : c1["twitter_username"]
+        }
+        res.append(info)
+    return res
+
 def runtest():
-    usernames, org_ids, country_ids = get_org_info()
-    return [usernames, org_ids, country_ids]
+    res = org_info()
+    return res
     print("great")

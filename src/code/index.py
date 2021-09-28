@@ -12,7 +12,7 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from pymongo import MongoClient
 from typing import Optional
-
+import json
 
 
 DATA_PATH = '/www/data/'
@@ -37,7 +37,7 @@ def save_tweets():
 @app.post('/test')
 def test():
     tweets = scrapTwitterUser.runtest()
-    return str(tweets)
+    return json.dumps(tweets)
     # return tweets
 
 @app.post('/addavatars')
