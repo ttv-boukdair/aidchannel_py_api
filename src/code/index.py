@@ -37,7 +37,7 @@ def save_tweets():
 @app.post('/test')
 def test():
     tweets = scrapTwitterUser.runtest()
-    return json.dumps(tweets)
+    return str(tweets)
     # return tweets
 
 @app.post('/addavatars')
