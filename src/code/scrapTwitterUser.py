@@ -64,8 +64,7 @@ def save_model(tweet, username, org_id, country_id):
     "name":tweet.name,
     "avatar_id": avatar
     }
-    if username == tweet.username:
-        document = db.tweets.insert_one(model)
+    document = db.tweets.insert_one(model)
 
 
 def scrap_users_tweets(username, organization_id, country_id):
@@ -73,7 +72,8 @@ def scrap_users_tweets(username, organization_id, country_id):
     c = twint.Config()
     c.Username = username
     c.Custom["tweet"] = ["id","created_at","datestamp"]
-    
+    c.Filter_retweets = True
+    # c.Retweets = True
     c.Retries_count = 5
     c.Store_object = True
     # c.Hide_output = True
