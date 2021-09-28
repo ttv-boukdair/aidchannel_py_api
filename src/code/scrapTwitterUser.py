@@ -82,6 +82,8 @@ def scrap_users_tweets(username, organization_id, country_id):
     since_date = get_last_date(username)
     if since_date != False:
           c.Since = since_date
+    else:
+          c.Since = "2016-01-01"
     try:
         twint.run.Search(c)
     except Exception as e:
