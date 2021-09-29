@@ -41,7 +41,7 @@ def get_org_info():
 
 
 def containsTweet(id):
-   cur = db.twitters.find({'tweet_id':id}).limit(1)
+   cur = db.twitters.find({'tweet_id':id,'$where': "this.twitter_username.toLowerCase() === this.tweet_username.toLowerCase()" }).limit(1)
    for tweet in cur:
       if tweet:
         return True
@@ -70,7 +70,7 @@ def save_model(tweet, username, org_id, country_id):
     "avatar_id": avatar,
      "validation":1
     }
-    if(containsTweet(tweet.id) and tweet.username.lower() == username.lower()):
+    if(containsTweet(tweet.id)):
         pass
     else:
         document = db.twitters.insert_one(model)
