@@ -70,10 +70,7 @@ def save_model(tweet, username, org_id, country_id):
     "avatar_id": avatar,
      "validation":1
     }
-    if(containsTweet(tweet.id)):
-        pass
-    else:
-        document = db.twitters.insert_one(model)
+    document = db.twitters.insert_one(model)
 
 
 def scrap_users_tweets(username, organization_id, country_id):
