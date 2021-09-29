@@ -40,7 +40,12 @@ def get_org_info():
     return twt_usernames, organization_ids, country_ids
 
 
-
+def containsTweet(id):
+   cur = db.twitters.find({'tweet_id':id}).limit(1)
+   for tweet in cur:
+      if tweet:
+        return True
+   return False
 
 def save_model(tweet, username, org_id, country_id):
     datestamp = tweet.datestamp
@@ -51,7 +56,7 @@ def save_model(tweet, username, org_id, country_id):
     except:
         avatar = ""
         print("could not find avatar of", username," from db")
-
+    
     model = {
     "tweet_id": tweet.id,
     "twitter_username": username,
@@ -65,7 +70,10 @@ def save_model(tweet, username, org_id, country_id):
     "avatar_id": avatar,
      "validation":1
     }
-    document = db.twitters.insert_one(model)
+    if(containsTweet(tweet.id)):
+        pass
+    else:
+        document = db.twitters.insert_one(model)
 
 
 def scrap_users_tweets(username, organization_id, country_id):
