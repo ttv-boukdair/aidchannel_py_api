@@ -112,4 +112,4 @@ def run():
     clean()
 
 def clean():
-    db.twitters.find({'$where': "this.twitter_username.toLowerCase() !== this.tweet_username.toLowerCase()"})
+    db.twitters.remove({'$where': "this.twitter_username.toLowerCase() !== this.tweet_username.toLowerCase()"})
