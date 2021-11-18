@@ -109,5 +109,7 @@ def run():
     with concurrent.futures.ThreadPoolExecutor() as executor:
         executor.map(lambda params: scrap_users_tweets(*params), zip(usernames,org_ids,country_ids))
         print("great")
+    clean()
 
-
+def clean():
+    db.getCollection('twitters').find({'$where': "this.twitter_username.toLowerCase() !== this.tweet_username.toLowerCase()"})
