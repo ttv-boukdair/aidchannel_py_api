@@ -25,7 +25,7 @@ def get_last_date(username):
 def get_org_info():
 
     has_accounts = {}
-    cursor_account = db.organizations.find({"twitter_username": {"$exists": True}})
+    cursor_account = db.organizations.find({"twitter_username": {"$exists": True}, "country":{"$exists": True}})
     for c1 in cursor_account:
         info = {
         "org_id":  c1["_id"],
