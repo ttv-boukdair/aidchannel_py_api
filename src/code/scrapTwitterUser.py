@@ -112,4 +112,4 @@ def run():
     clean()
 
 def clean():
-    db.getCollection('twitters').find({'$where': "this.twitter_username.toLowerCase() !== this.tweet_username.toLowerCase()"})
+    db.twitters.find({'$where': "this.twitter_username.toLowerCase() !== this.tweet_username.toLowerCase()"})
