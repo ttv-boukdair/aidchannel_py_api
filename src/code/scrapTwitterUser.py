@@ -68,7 +68,7 @@ def save_model(tweet, username, org_id, country_id):
     "photos":tweet.photos,
     "name":tweet.name,
     "avatar_id": avatar,
-     "validation":1
+     "validation":0
     }
     if(containsTweet(tweet.id)):
         pass
