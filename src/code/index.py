@@ -13,6 +13,7 @@ from pydantic import BaseModel
 from pymongo import MongoClient
 from typing import Optional
 import json
+from deep_translator import GoogleTranslator
 
 
 DATA_PATH = '/www/data/'
@@ -55,7 +56,12 @@ def test():
     data = scrapNews2.run()
     # return data
 
-
+@app.post("/translate")
+def translate_api(input : Input):
+    req = jsonable_encoder(input)
+    text = req['text']
+    translated = GoogleTranslator(source='auto', target='en').translate(text)
+    return translated
 
 
 

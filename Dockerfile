@@ -36,5 +36,6 @@ RUN python3 -m pip install pymongo
 RUN python3 -m pip install --user --upgrade git+https://github.com/twintproject/twint.git@origin/master#egg=twint
 RUN python3 -m pip install selenium
 RUN python3 -m pip install beautifulsoup4
+RUN python3 -m pip install deep-translator
 COPY ./src /www/
 CMD ["python3","/www/code/index.py"]
