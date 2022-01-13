@@ -83,7 +83,7 @@ def scrap_users_tweets(username, organization_id, country_id):
     c.Custom["tweet"] = ["id","created_at","datestamp"]
     c.Filter_retweets = True
     # c.Retweets = True
-    c.Retries_count = 5
+    c.Retries_count = 10
     c.Store_object = True
     # c.Hide_output = True
 
@@ -92,7 +92,7 @@ def scrap_users_tweets(username, organization_id, country_id):
     if since_date != False:
           c.Since = since_date
     else:
-          c.Since = "2016-01-01"
+          c.Since = "2021-12-31"
     try:
         twint.run.Search(c)
     except Exception as e:
