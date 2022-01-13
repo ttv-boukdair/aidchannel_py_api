@@ -33,7 +33,7 @@ RUN python3 -m pip install requests
 RUN python3 -m pip install pandas
 RUN python3 -m pip install python-dotenv
 RUN python3 -m pip install pymongo
-RUN python3 -m pip install --user --upgrade git+https://github.com/twintproject/twint.git@origin/master#egg=twint
+RUN python3 -m pip install twint-fork
 RUN python3 -m pip install selenium
 RUN python3 -m pip install beautifulsoup4
 RUN python3 -m pip install deep-translator
