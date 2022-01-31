@@ -3,7 +3,7 @@ import twint
 import concurrent.futures
 from itertools import repeat
 from pymongo import MongoClient
-
+from datetime import datetime, timedelta
 
 DB = "mongodb://aidchannel:aidchannel_password123456@51.77.134.195:27028/aidchannel?authSource=aidchannel"
 
@@ -90,10 +90,10 @@ def scrap_users_tweets(username, organization_id, country_id):
 
     #  add newest tweets to database since last scrapping
     since_date = get_last_date(username)
-    if since_date != False:
-          c.Since = since_date
-    else:
-          c.Since = "2022-01-30"
+    # yesterday date
+    yesterday = datetime.now() - timedelta(1)
+    d = datetime.strftime(yesterday, '%Y-%m-%d')
+    c.Since = d
     try:
         twint.run.Search(c)
     except Exception as e:
